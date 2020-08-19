@@ -1,0 +1,17 @@
+{
+  "name": "indiancensusanalyserjavascript",
+  "version": "1.0.0",
+  "description": "censusTest",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "dev": "node app.js"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "csv-parser": "^2.3.3",
+    "mocha": "^8.1.1"
+  }
+}
