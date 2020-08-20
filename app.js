@@ -3,10 +3,10 @@ const fs = require('fs')
 var result = [];
 
 fs.createReadStream('IndiaStateCensusData.csv')
-//.pipe(csv({}))
+.pipe(csv({}))
 .on('data', (data) => result.push(data))
 .on('end', () => {
-    console.log(result.length);
+    //console.log(result);
 });
 
 exports.a=()=>{
