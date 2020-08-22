@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
-const a = require('../app').a;
+const csvData = require('../src/IndianCensusAnalyser').csvData;
 describe('indian census analyser', function(){
-    it('app should return total count', function(){
-        assert.equal(a(), 28);
+    it('IndianCensusAnalyser should return total count', function(){
+        assert.equal(csvData(), 28);
     }); 
 });
