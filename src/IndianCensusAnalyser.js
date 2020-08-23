@@ -1,23 +1,27 @@
 const csv = require('csv-parser')
-const fs = require('fs')
+const fs = require('fs');
+const { ALL } = require('dns');
 var result = [];
-function data(callback){
-fs.createReadStream('IndiaStateCensusData.csv')
-.pipe(csv({}))
-.on('data', (data) => result.push(data))
-.on('end', () => {
-    callback (result);
-});
-}
-const user = data(user => {
-    //console.log(result.length)
-});
-exports.csvData=()=>{
-    return result.length;
+function data(){
+    return new Promise((resolve, reject)=>{
+        fs.createReadStream('IndiaStateCensusData.csv')
+        .pipe(csv({}))
+        .on('data', (data) => result.push(data))
+        .on('end', () => {
+            resolve(result);
+        });  
+    });
+};
+
+
+function comparePopulation(a, b){
+    return a.Population - b.Population;
 }
 
-result.sort(function(a, b){
-    if(a.Population < b.Population)return -1;
-    if(a.Population > b.Population)return 1;
-    return 0;
+data().then(function(result){
+    result.sort(comparePopulation);
 });
+
+module.exports.csvData=()=>{
+    return result;
+}
