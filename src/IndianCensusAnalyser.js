@@ -1,6 +1,5 @@
 const csv = require('csv-parser')
 const fs = require('fs');
-const { ALL } = require('dns');
 var result = [];
 function data(){
     return new Promise((resolve, reject)=>{
@@ -12,7 +11,6 @@ function data(){
         });  
     });
 };
-
 
 function comparePopulation(a, b){
     return a.Population - b.Population;
