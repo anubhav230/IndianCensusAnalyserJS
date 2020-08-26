@@ -6,13 +6,13 @@ var result2 = [];
 class IndiaStateCensusData{
     constructor(){
     }
-    data(callback){
-            fs.createReadStream('IndiaStateCensusData.csv')
-            .pipe(csv({}))
-            .on('data', (data) => result.push(data))
-            .on('end', () => {
-                return callback(null, result)
-            });
+    data(callback) {
+        fs.createReadStream('IndiaStateCensusData.csv')
+        .pipe(csv({}))
+        .on('data', (data) => result.push(data))
+        .on('end', () => {
+            return callback(null, result)
+        });
     };
 
     sortingPopulation(arr){
@@ -91,27 +91,14 @@ class IndiaStateCensusData{
         const result = this.sortingDensity(arr);
         return result[result.length-1].DensityPerSqKm;
     }
-    
-    
-    //mostPopulationData(arr){
-        // this.data((err, result2)=>{
-        //     console.log(result2.lenght)
-        // })
-        //console.log(arr.lenght);
-        //const result2 = this.sortingPopulation(arr);
-        //console.log(result2[result2.lenght-1]);
-        //return result2[result2.lenght-1]
-    //}
 
-
-
-
+    lowestDensityPerSqKm(arr){
+        const result = this.sortingDensity(arr);
+        return result[0].DensityPerSqKm;
+    }
 }
-
 // const obj = new IndiaStateCensusData();
-
 // const a=[1,2,3,4,5,6,8];
 // obj.sortingPopulation3(a);
 
 module.exports = IndiaStateCensusData;
-

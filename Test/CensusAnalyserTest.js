@@ -69,6 +69,14 @@ describe('indian census analyser', ()=>{
             result.splice(0, result.length)
         });
     });
+
+    it('Given IndianCensusData When sorted DensityPerSqKm wise then return lowest DensityPerSqKm', ()=>{
+        obj.data((err, result)=>{   
+            const DensityPerSqKm = obj.lowestDensityPerSqKm(result);
+            assert.equal(DensityPerSqKm, 50);
+            result.splice(0, result.length)
+        });
+    });
 });    
     
 
