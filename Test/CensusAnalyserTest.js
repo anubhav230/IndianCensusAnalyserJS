@@ -1,28 +1,42 @@
-  
 const assert = require('chai').assert;
-const csvData = require('../src/IndianCensusAnalyser').csvData;
-
-describe('indian census analyser', function(){
-    it('IndianCensusAnalyser should return total count', ()=>{
-        assert.equal(csvData().length, 28);
+const IndiaStateCensusData = require('../src/IndianCensusAnalyser');
+const obj = new IndiaStateCensusData();
+var result=[];
+describe('indian census analyser', ()=>{
+    it('Given IndianCensusData When loaded then return total count', ()=>{
+        const arr = obj.data((error, result)=>{
+            if(error){
+                console.log(error)
+            }else{
+                assert.equal(result.length, 29);
+                result.splice(0, result.length)
+            }    
+        })
     });
 
-    it('IndianCensusAnalyser should return most populated state', ()=>{
-        const arr = csvData();
-        assert.equal(arr[arr.length-1].State, 'Uttar Pradesh');
-    });
-
-    it('IndianCensusAnalyser should return most DensityPerSqKm state', ()=>{
-        const arr = csvData().sort(function(a, b){
-            return a.DensityPerSqKm - b.DensityPerSqKm;
+    it('Given IndianCensusData When sorted population wise then return sored data', ()=>{
+        obj.data((err, result)=>{
+            const arr2 = obj.sortingPopulation(result);
+            assert.equal(arr2[arr2.length-1].Population, 199812341);
+            result.splice(0, result.length)
         });
-        assert.equal(arr[arr.length-1].State, 'Bihar');
     });
 
-    it('IndianCensusAnalyser should return most DensityPerSqKm state', ()=>{
-        const arr = csvData().sort(function(a, b){
-            return a.DensityPerSqKm - b.DensityPerSqKm;
+    it('Given IndianCensusData When sorted population wise then return most populated state', ()=>{
+        obj.data((err, result)=>{
+            const arr2 = obj.sortingPopulation(result);
+            assert.equal(arr2[arr2.length-1].State, 'Uttar Pradesh');
+            result.splice(0, result.length)
         });
-        assert.equal(arr[0].State, 'Arunachal Pradesh');
     });
-});
+});    
+    
+
+
+
+
+
+
+
+
+
