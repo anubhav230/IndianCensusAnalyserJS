@@ -1,7 +1,6 @@
 const assert = require('chai').assert;
 const IndiaStateCensusData = require('../src/IndianCensusAnalyser');
 const obj = new IndiaStateCensusData();
-//var result=[];
 describe('indian census analyser', ()=>{
     it('Given IndianCensusData When loaded then return total count', ()=>{
         const arr = obj.data((error, result)=>{
@@ -77,14 +76,12 @@ describe('indian census analyser', ()=>{
             result.splice(0, result.length)
         });
     });
+
+    it('Given CensusData When sorted DensityPerSqKm wise then return highest DensityPerSqKm state', ()=>{
+        obj.data((err, result)=>{   
+            const state = obj.highestDensityPerSqKmState(result);
+            assert.equal(state, 'Bihar');
+            result.splice(0, result.length)
+        });
+    });
 });    
-    
-
-
-
-
-
-
-
-
-

@@ -96,6 +96,11 @@ class IndiaStateCensusData{
         const result = this.sortingDensity(arr);
         return result[0].DensityPerSqKm;
     }
+
+    highestDensityPerSqKmState(arr){
+        const result = this.sortingDensity(arr);
+        return result[result.length-1].State;
+    }
 }
 // const obj = new IndiaStateCensusData();
 // const a=[1,2,3,4,5,6,8];
