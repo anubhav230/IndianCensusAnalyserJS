@@ -2,6 +2,7 @@ const csv = require('csv-parser')
 const fs = require('fs');
 const { resolve } = require('path');
 var result = [];
+var result2 = [];
 class IndiaStateCensusData{
     constructor(){
     }
@@ -16,8 +17,8 @@ class IndiaStateCensusData{
 
     sortingPopulation(arr){
         let temp;
-        for(let i=0; i < 28; i++){
-            for(let j=0; j < 28; j++){
+        for(let i=0; i < arr.length-1; i++){
+            for(let j=0; j < arr.length-1; j++){
                 if(parseInt(arr[j].Population) > parseInt(arr[j+1].Population)){
                     temp=arr[j];
                     arr[j]=arr[j+1];
@@ -28,10 +29,54 @@ class IndiaStateCensusData{
         return arr;
     }
 
+    mostPopulationData(arr){
+        const result = this.sortingPopulation(arr);
+        return result[result.length-1].Population
+    }
+
+    mostPopulatedState(arr){
+        const result = this.sortingPopulation(arr);
+        return result[result.length-1].State
+    }
+
+    leastPopulatedState(arr){
+        const result = this.sortingPopulation(arr);
+        return result[0].State
+    }
+
     sortingAreaInSqKm(arr){
         let temp;
-        for(let i=0; i < 29; i++){
-            for(let j=0; j < 29; j++){
+        for(let i=0; i < arr.length-1; i++){
+            for(let j=0; j < arr.length-1; j++){
+                if(parseInt(arr[j].AreaInSqKm) > parseInt(arr[j+1].AreaInSqKm)){
+                    temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+        }
+        return arr;
+    }
+
+    mostAreaInSqKm(arr){
+        const result = this.sortingAreaInSqKm(arr);
+        return result[result.length-1].AreaInSqKm;
+    }
+
+    mostAreaInSqKmState(arr){
+        const result = this.sortingAreaInSqKm(arr);
+        return result[result.length-1].State;
+    }
+
+    leastAreaInSqKmState(arr){
+        const result = this.sortingAreaInSqKm(arr);
+        return result[0].State;
+    }
+
+    sortingDensity(arr){
+        let temp;
+        for(let i=0; i < arr.length-1; i++){
+            for(let j=0; j < arr.length-1; j++){
                 if(parseInt(arr[j].DensityPerSqKm) > parseInt(arr[j+1].DensityPerSqKm)){
                     temp=arr[j];
                     arr[j]=arr[j+1];
@@ -41,6 +86,32 @@ class IndiaStateCensusData{
         }
         return arr;
     }
+
+    highestDensityPerSqKm(arr){
+        const result = this.sortingDensity(arr);
+        return result[result.length-1].DensityPerSqKm;
+    }
+    
+    
+    //mostPopulationData(arr){
+        // this.data((err, result2)=>{
+        //     console.log(result2.lenght)
+        // })
+        //console.log(arr.lenght);
+        //const result2 = this.sortingPopulation(arr);
+        //console.log(result2[result2.lenght-1]);
+        //return result2[result2.lenght-1]
+    //}
+
+
+
+
 }
 
+// const obj = new IndiaStateCensusData();
+
+// const a=[1,2,3,4,5,6,8];
+// obj.sortingPopulation3(a);
+
 module.exports = IndiaStateCensusData;
+
