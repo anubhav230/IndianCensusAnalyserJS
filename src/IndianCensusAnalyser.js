@@ -6,6 +6,7 @@ var result2 = [];
 class IndiaStateCensusData{
     constructor(){
     }
+
     data(callback) {
         fs.createReadStream('IndiaStateCensusData.csv')
         .pipe(csv({}))
@@ -101,9 +102,11 @@ class IndiaStateCensusData{
         const result = this.sortingDensity(arr);
         return result[result.length-1].State;
     }
+
+    lowestDensityPerSqKmState(arr){
+        const result = this.sortingDensity(arr);
+        return result[0].State;
+    }
 }
-// const obj = new IndiaStateCensusData();
-// const a=[1,2,3,4,5,6,8];
-// obj.sortingPopulation3(a);
 
 module.exports = IndiaStateCensusData;

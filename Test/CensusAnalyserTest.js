@@ -84,4 +84,12 @@ describe('indian census analyser', ()=>{
             result.splice(0, result.length)
         });
     });
+
+    it('Given CensusData When sorted DensityPerSqKm wise then return lowest DensityPerSqKm state', ()=>{
+        obj.data((err, result)=>{   
+            const state = obj.lowestDensityPerSqKmState(result);
+            assert.equal(state, 'Arunachal Pradesh');
+            result.splice(0, result.length)
+        });
+    });
 });    
