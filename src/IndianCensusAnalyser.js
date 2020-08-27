@@ -1,19 +1,25 @@
 const csv = require('csv-parser')
 const fs = require('fs');
 const { resolve } = require('path');
+const { error } = require('console');
 var result = [];
 var result2 = [];
 class IndiaStateCensusData{
+    
     constructor(){
     }
 
-    data(callback) {
-        fs.createReadStream('IndiaStateCensusData.csv')
-        .pipe(csv({}))
-        .on('data', (data) => result.push(data))
-        .on('end', () => {
-            return callback(null, result)
-        });
+    data(filePath, callback) {
+            try{
+            fs.createReadStream(filePath)
+            .pipe(csv({}))
+            .on('data', (data) => result.push(data))
+            .on('end', () => {
+                return callback(null, result)
+            });
+        }catch(error){
+            return callback(error, null);
+        }
     };
 
     sortingPopulation(arr){
