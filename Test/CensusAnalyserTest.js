@@ -2,95 +2,114 @@ const assert = require('chai').assert;
 const IndiaStateCensusData = require('../src/IndianCensusAnalyser');
 const filePath = 'IndiaStateCensusData.csv';
 const obj = new IndiaStateCensusData();
+
 describe('indian census analyser', ()=>{
-    it('Given IndianCensusData When loaded then return total count',()=>{
-        const arr = obj.data(filePath, (error, result)=>{
+    it('Given IndianCensusData When loaded should return total count',()=>{
+        obj.data(filePath, (error, result)=>{
             if(error){
-                
+                console.log(error);
             }else{
                 assert.equal(result.length, 29);
-               result.splice(0, result.length)
-                }    
+            }    
         })
     });
-
-    it('Given IndianCensusData When sorted population wise then return sored data', ()=>{
-        obj.data(filePath, (err, result)=>{
-            const population = obj.mostPopulationData(result);
+    
+    it('Given IndianCensusData When sorted population wise should return sored data', ()=>{
+        obj.data(filePath, (_err, result)=>{
+            var type = 'Population'
+            var base = 'Population'
+            const population = obj.maxResult(result, type, base);
             assert.equal(population, 199812341);
-            result.splice(0, result.length)
-        });
+        }); 
     });
 
-    it('Given IndianCensusData When sorted population wise then return most populated state', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const state = obj.mostPopulatedState(result);
+    it('Given IndianCensusData When sorted population wise should return most populated state', ()=>{
+        obj.data(filePath, (_err, result)=>{
+            var type = 'Population'
+            var base = 'State'   
+            const state = obj.maxResult(result, type, base);
             assert.equal(state, 'Uttar Pradesh');
-            result.splice(0, result.length)
         });
     });
 
-    it('Given IndianCensusData When sorted population wise then return least populated state', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const state = obj.leastPopulatedState(result);
+    it('GivenIndianCensusData When sorted population wise should return least populated state', ()=>{
+        obj.data(filePath, (_err, result)=>{ 
+            var type = 'Population'
+            var base = 'State'  
+            const state = obj.minResult(result, type, base);
             assert.equal(state, 'Sikkim');
-            result.splice(0, result.length)
         });
     });
 
-    it('Given IndianCensusData When sorted AreaInSqKm wise then return most AreaInSqKm', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const AreaInSqKm = obj.mostAreaInSqKm(result);
+    it('Given IndianCensusData When sorted AreaInSqKm wise should return most AreaInSqKm', ()=>{
+        obj.data(filePath, (_err, result)=>{ 
+            var type = 'AreaInSqKm'
+            var base = 'AreaInSqKm'  
+            const AreaInSqKm = obj.maxResult(result, type, base);
             assert.equal(AreaInSqKm, 342239);
-            result.splice(0, result.length)
         });
     });
 
-    it('Given IndianCensusData When sorted AreaInSqKm wise then return most AreaInSqKm state', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const state = obj.mostAreaInSqKmState(result);
+    it('Given IndianCensusData When sorted AreaInSqKm wise should return most AreaInSqKm', ()=>{
+        obj.data(filePath, (_err, result)=>{ 
+            var type = 'AreaInSqKm'
+            var base = 'AreaInSqKm'  
+            const AreaInSqKm = obj.minResult(result, type, base);
+            assert.equal(AreaInSqKm, 3702);
+        });
+    });
+
+    it('Given IndianCensusData When sorted AreaInSqKm wise should return most AreaInSqKm state', ()=>{
+        obj.data(filePath, (_err, result)=>{ 
+            var type = 'AreaInSqKm'
+            var base = 'State'  
+            const state = obj.maxResult(result, type, base);
             assert.equal(state, 'Rajasthan');
-            result.splice(0, result.length)
         });
     });
 
-    it('Given IndianCensusData When sorted AreaInSqKm wise then return least AreaInSqKm state', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const state = obj.leastAreaInSqKmState(result);
+    it('Given IndianCensusData When sorted AreaInSqKm wise should return least AreaInSqKm state', ()=>{
+        obj.data(filePath, (err, result)=>{ 
+            var type = 'AreaInSqKm'
+            var base = 'State'  
+            const state = obj.minResult(result, type, base);
             assert.equal(state, 'Goa');
-            result.splice(0, result.length)
         });
     });
 
-    it('Given IndianCensusData When sorted DensityPerSqKm wise then return highest DensityPerSqKm', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const DensityPerSqKm = obj.highestDensityPerSqKm(result);
+    it('Given IndianCensusData When sorted DensityPerSqKm wise should return highest DensityPerSqKm', ()=>{
+        obj.data(filePath, (err, result)=>{
+            var type = 'DensityPerSqKm'
+            var base = 'DensityPerSqKm'   
+            const DensityPerSqKm = obj.maxResult(result, type, base);
             assert.equal(DensityPerSqKm, 1102);
-            result.splice(0, result.length)
         });
     });
 
-    it('Given IndianCensusData When sorted DensityPerSqKm wise then return lowest DensityPerSqKm', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const DensityPerSqKm = obj.lowestDensityPerSqKm(result);
+    it('Given IndianCensusData When sorted DensityPerSqKm wise should return lowest DensityPerSqKm', ()=>{
+        obj.data(filePath, (err, result)=>{  
+            var type = 'DensityPerSqKm'
+            var base = 'DensityPerSqKm'  
+            const DensityPerSqKm = obj.minResult(result, type, base);
             assert.equal(DensityPerSqKm, 50);
-            result.splice(0, result.length)
         });
     });
 
-    it('Given CensusData When sorted DensityPerSqKm wise then return highest DensityPerSqKm state', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const state = obj.highestDensityPerSqKmState(result);
+    it('Given CensusData When sorted DensityPerSqKm wise should return highest DensityPerSqKm state', ()=>{
+        obj.data(filePath, (err, result)=>{ 
+            var type = 'DensityPerSqKm'
+            var base = 'State'   
+            const state = obj.maxResult(result, type, base);
             assert.equal(state, 'Bihar');
-            result.splice(0, result.length)
         });
     });
 
-    it('Given CensusData When sorted DensityPerSqKm wise then return lowest DensityPerSqKm state', ()=>{
-        obj.data(filePath, (err, result)=>{   
-            const state = obj.lowestDensityPerSqKmState(result);
+    it('Given CensusData When sorted DensityPerSqKm wise should return lowest DensityPerSqKm state', ()=>{
+        obj.data(filePath, (err, result)=>{
+            var type = 'DensityPerSqKm'
+            var base = 'State'    
+            const state = obj.minResult(result, type, base);
             assert.equal(state, 'Arunachal Pradesh');
-            result.splice(0, result.length)
         });
     });
 });    
