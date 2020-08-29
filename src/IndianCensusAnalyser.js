@@ -3,17 +3,18 @@ const fs = require('fs');
 const { resolve } = require('path');
 const { error } = require('console');
 var result = [];
-var result2 = [];
 class IndiaStateCensusData{
     constructor(){
     }
-    data(filePath, callback) {
-            fs.createReadStream(filePath)
-            .pipe(csv({}))
-            .on('data', (data) => result.push(data))
-            .on('end', () => {
-                return callback(null, result)
-            });
+    data(filePath, callback){
+        fs.createReadStream(filePath)
+        .pipe(csv({}))
+        .on('data', (data) => result.push(data))
+        .on('end', () => {
+            if(result.length == 29)
+            return callback(null, result)
+            return false
+        });
     };
 
     swop(arr,j){
@@ -42,7 +43,7 @@ class IndiaStateCensusData{
 
     maxResult(arr, type, base){
         const result = this.sortingData(arr, type);
-        if(base == 'Population')
+        if(base == 'Population') 
         return result[result.length-1].Population
         if(base == 'AreaInSqKm')
         return result[result.length-1].AreaInSqKm;
@@ -63,6 +64,10 @@ class IndiaStateCensusData{
         if(base == 'DensityPerSqKm')
         return result[0].DensityPerSqKm;
     }
- }
+
+    getHeaders(arr){
+        return Object.keys(arr);
+    }
+ }    
 
 module.exports = IndiaStateCensusData;
