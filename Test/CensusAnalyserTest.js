@@ -163,5 +163,4 @@ describe('indian census analyser', ()=>{
             assert.equal(state, 'Arunachal Pradesh');
         });
     });
-
 });   
